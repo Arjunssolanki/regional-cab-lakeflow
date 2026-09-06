@@ -5,6 +5,20 @@ This project implements a regional cab service analytics platform using Databric
 An enterprise-grade, event-driven Medallion (Lakehouse) Data Platform built natively on Databricks Delta Live Tables (DLT) and orchestrated via Unity Catalog. The platform handles incremental ingestion, automated schema evolution, strict data quality enforcement, and Change Data Capture (CDC) to transform raw transit logs into optimized analytical assets for business intelligence reporting.
 
 ---
+# Architecture & Data Workflow
+The pipeline implements an enterprise-grade, cloud-native **Medallion Architecture** to process data seamlessly by decoupling storage (**AWS S3**) from compute (**Databricks Lakeflow**):
+![Medallion Data Lakehouse Architecture](pipeline_flow.jpg)
+
+1. **☁️ AWS S3 Landing Zone (Storage Base):** 
+   All multi-regional cab transaction records (raw CSV/Parquet streams) land directly in an **AWS S3 bucket**. This establishes a modern data lake architecture, securely storing raw files independently from downstream transformation compute clusters.
+2. **🥉 Bronze Layer (Raw Ingestion):** 
+   Databricks Delta Live Tables utilize Auto Loader (`cloud_files`) to read data incrementally and continuously from the **AWS S3 bucket path**. This stage preserves the raw historical audit trail without modifying structural fields.
+3. **🥈 Silver Layer (Data Enrichment & Quality):** 
+   Enforces strict schema evolution rules, checks data types, and applies quality parameters to remove anomalies. Trips are joined to municipality profiles and calendars.
+4. **🥇 Gold Layer (Analytical Views):** 
+   Aggregates granular records into a unified master fact view alongside isolated regional territorial tables indexed for low-latency BI queries.
+
+---
 
 ## 🗂️ Data Pipeline Infrastructure (Layer-by-Layer)
 ![Data Platform Lineage Flow Map](pipeline_flow.jpg)
