@@ -7,6 +7,8 @@ An enterprise-grade, event-driven Medallion (Lakehouse) Data Platform built nati
 ---
 
 ## 🗂️ Data Pipeline Infrastructure (Layer-by-Layer)
+![Data Platform Lineage Flow Map](pipeline_flow.jpg)
+
 
 ### 1. Bronze Layer (`transportation.bronze_v2`)
 The landing zone establishes an automated ingestion data pipeline using Databricks Auto Loader (`cloud_files`) to securely stream source files incrementally as they land in cloud storage.
