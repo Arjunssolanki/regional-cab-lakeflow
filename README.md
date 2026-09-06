@@ -7,7 +7,8 @@ An enterprise-grade, event-driven Medallion (Lakehouse) Data Platform built nati
 ---
 # Architecture & Data Workflow
 The pipeline implements an enterprise-grade, cloud-native **Medallion Architecture** to process data seamlessly by decoupling storage (**AWS S3**) from compute (**Databricks Lakeflow**):
-![Medallion Data Lakehouse Architecture](pipeline_flow.jpg)
+
+![Medallion Data Lakehouse Architecture](lakehouse.jpg)
 
 1. **☁️ AWS S3 Landing Zone (Storage Base):** 
    All multi-regional cab transaction records (raw CSV/Parquet streams) land directly in an **AWS S3 bucket**. This establishes a modern data lake architecture, securely storing raw files independently from downstream transformation compute clusters.
