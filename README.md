@@ -119,8 +119,17 @@ The query below evaluates the dataset using native boolean logic (`is_weekend IS
 ### 📈 Sample Analytics Output (Simulated Results)
 ![Data Platform Lineage Flow Map](output.jpg)
 ### 🎯 Key Actionable Insights
-1. **Surat Performance Opportunities (`GJ01`):** Surat generates top-tier volume and gross revenue, but driver satisfaction trails behind passenger ratings (4.21 vs 4.65). This indicates high route friction or traffic bottlenecks, suggesting a need for localized fare boosts or driver incentives.
-2. **Weekend Leisure Growth (`CH01` & `KL01`):** Weekend trips in Chandigarh and Kochi capture a **15% to 35% higher fare value per ride** caused by longer average distance lengths (up to 22.1 km). Strategic driver placement should pivot toward transit and commercial hubs on Friday nights.
+1. **👑 Jaipur is the Core Growth Engine (High Ticket Sizes)**
+   * **Insight:** Jaipur dominates both volume and total revenue (generating over ₹2.81 Crore on weekdays alone). Crucially, it maintains a massive **Average Revenue per Trip of ₹501.54** because riders take exceptionally long journeys (averaging ~30 km per trip).
+   * **Action Plan:** Expand premium and outstation ride offerings specifically in Jaipur to capitalize on long-distance commuter behavior. Since passenger and driver ratings are stellar (~8.9/10), consider duplicating Jaipur's operational blueprint in other markets.
+
+2. **⚠️ The Lucknow & Surat Service Quality Deficit**
+   * **Insight:** Both Lucknow and Surat generate massive trip volumes (37.5k and 33.8k trips respectively), proving strong organic demand. However, their passenger and driver ratings are remarkably low (**6.4 - 6.6 out of 10**), indicating high user dissatisfaction.
+   * **Action Plan:** Launch an immediate ground-ops audit in Lucknow and Surat. The low ratings likely point to massive traffic bottlenecks, localized network dead-zones, or a supply shortage leading to high cancellations. Implement localized driver training and targeted completion bonuses to turn these markets around.
+
+3. **📊 Weekday Commute Dominance vs. Weekend Drop-off**
+   * **Insight:** Across the highest-performing markets (Jaipur, Kochi, Chandigarh), weekday revenue completely eclipses weekend revenue. For instance, Jaipur's trip volume drops from 56k on weekdays to just 11k on weekends.
+   * **Action Plan:** Re-allocate the marketing budget away from weekend promotions and heavily target corporate/weekday commuter tie-ups. Implement a dynamic pricing multiplier on weekdays to optimize margins when demand peaks.
 
 ---
 ## 🚀 Setting Up the Repository in Databricks
