@@ -5,6 +5,28 @@ This project implements a regional cab service analytics platform using Databric
 An enterprise-grade, event-driven Medallion (Lakehouse) Data Platform built natively on Databricks Delta Live Tables (DLT) and orchestrated via Unity Catalog. The platform handles incremental ingestion, automated schema evolution, strict data quality enforcement, and Change Data Capture (CDC) to transform raw transit logs into optimized analytical assets for business intelligence reporting.
 
 ---
+📁 transportation (Your Master Project Catalog)
+│
+├── 📁 bronze_v2 (Raw Ingestion Folder)
+│   ├── 📄 bronze_dim_city_raw (Streaming Table)
+│   ├── 📄 bronze_trips         (Streaming Table)
+│   └── 📄 trips_silver_staging (Staging Table)
+│
+├── 📁 silver (Cleaned Enterprise Folder)
+│   ├── 📄 calendar  (Materialized View with Holiday Grid)
+│   ├── 📄 city      (Standardized Lookup Directory)
+│   └── 📄 trips     (Deduplicated SCD Type 1 Production Table)
+│
+└── 📁 gold (Business Intelligence Folder)
+    ├── 📊 fact_trips (Combined Master Fact Dataset)
+    │
+    └── 📂 Isolated Regional Slices (10x Specific Query Folders)
+        ├── 📄 fact_trips_chandigarh
+        ├── 📄 fact_trips_coimbatore
+        ├── 📄 fact_trips_indore
+        ├── 📄 fact_trips_jaipur
+        └── ... (Remaining Hubs)
+
 
 ## 🗂️ Data Pipeline Infrastructure (Layer-by-Layer)
 ![Data Platform Lineage Flow Map](pipeline_flow.jpg)
