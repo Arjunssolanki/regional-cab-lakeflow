@@ -115,3 +115,47 @@ This showcase demonstrates how corporate stakeholders and regional operations ma
 
 ### 🛠️ Production-Grade Analytical Query
 The query below evaluates the dataset using native boolean logic (`is_weekend IS TRUE`), preventing syntax parsing mismatches on strict-type schemas.
+![Data Platform Lineage Flow Map](production_grade_analytical_query.jpg)
+### 📈 Sample Analytics Output (Simulated Results)
+![Data Platform Lineage Flow Map](output.jpg)
+### 🎯 Key Actionable Insights
+1. **Surat Performance Opportunities (`GJ01`):** Surat generates top-tier volume and gross revenue, but driver satisfaction trails behind passenger ratings (4.21 vs 4.65). This indicates high route friction or traffic bottlenecks, suggesting a need for localized fare boosts or driver incentives.
+2. **Weekend Leisure Growth (`CH01` & `KL01`):** Weekend trips in Chandigarh and Kochi capture a **15% to 35% higher fare value per ride** caused by longer average distance lengths (up to 22.1 km). Strategic driver placement should pivot toward transit and commercial hubs on Friday nights.
+
+---
+## 🚀 Setting Up the Repository in Databricks
+
+Follow these steps to initialize or clone this pipeline into a new Databricks Git Folder workspace:
+
+1. **Configure Git Integration:**
+   * Go to **User Settings > Linked accounts** inside your Databricks Workspace.
+   * Add your Git provider credentials utilizing a **Personal Access Token (Classic)** with full `repo` permissions enabled.
+2. **Clone Workspace Folder:**
+   * Right-click the **Repos/Git Folders** catalog path -> **Create > Git Folder**.
+   * Provide the HTTPS Git repository string hook to sync automatically.
+3. **Run DLT Pipeline:**
+   * Create a new **Delta Live Tables** pipeline configuration job pointing to the script source path.
+
+---
+
+## 🔄 Reconnecting Your Workspace to GitHub (Troubleshooting)
+
+If you close your Databricks session and return to find that the `regional-cab-lakeflow` folder inside **Repos** appears empty, your workspace link needs to be refreshed. Follow these exact steps to safely reconnect and recover your files:
+
+### Step 1: Generate a New Token on GitHub
+1. Go to your GitHub profile, click your profile picture, and navigate to **Settings > Developer Settings > Personal access tokens (classic)**.
+2. Click **Generate new token > Generate new token (classic)**.
+3. Provide a clear note name (e.g., `databricks-session-recovery`).
+4. Select the **`repo`** scope checkbox to give Databricks access to your code files.
+5. Click **Generate token** and **copy the secret token immediately** (it will hide itself once you leave the page).
+
+### Step 2: Clear Out the Frozen Folder & Fresh Clone
+1. In Databricks, right-click the empty `regional-cab-lakeflow` folder in your left file tree and select **Trash / Delete**.
+2. Go to your GitHub project repository page on the web, click the green **<> Code** button, and copy the **HTTPS URL**.
+3. Return to Databricks, right-click the parent **Repos** folder in the sidebar, and choose **Create > Git folder**.
+4. Paste your GitHub repository HTTPS URL into the input field.
+5. Provide your credentials when prompted:
+   * **Git Provider Username:** Your GitHub account username/email.
+   * **Token / Password:** Paste the fresh **Personal Access Token** you generated in Step 1.
+6. Click **Create** or **Clone**. The Lakeflow pipeline files and notebooks will immediately download back into your workspace layout.
+
