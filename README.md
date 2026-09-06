@@ -5,28 +5,6 @@ This project implements a regional cab service analytics platform using Databric
 An enterprise-grade, event-driven Medallion (Lakehouse) Data Platform built natively on Databricks Delta Live Tables (DLT) and orchestrated via Unity Catalog. The platform handles incremental ingestion, automated schema evolution, strict data quality enforcement, and Change Data Capture (CDC) to transform raw transit logs into optimized analytical assets for business intelligence reporting.
 
 ---
-📁 transportation (Your Master Project Catalog)
-│
-├── 📁 bronze_v2 (Raw Ingestion Folder)
-│   ├── 📄 bronze_dim_city_raw (Streaming Table)
-│   ├── 📄 bronze_trips         (Streaming Table)
-│   └── 📄 trips_silver_staging (Staging Table)
-│
-├── 📁 silver (Cleaned Enterprise Folder)
-│   ├── 📄 calendar  (Materialized View with Holiday Grid)
-│   ├── 📄 city      (Standardized Lookup Directory)
-│   └── 📄 trips     (Deduplicated SCD Type 1 Production Table)
-│
-└── 📁 gold (Business Intelligence Folder)
-    ├── 📊 fact_trips (Combined Master Fact Dataset)
-    │
-    └── 📂 Isolated Regional Slices (10x Specific Query Folders)
-        ├── 📄 fact_trips_chandigarh
-        ├── 📄 fact_trips_coimbatore
-        ├── 📄 fact_trips_indore
-        ├── 📄 fact_trips_jaipur
-        └── ... (Remaining Hubs)
-
 
 ## 🗂️ Data Pipeline Infrastructure (Layer-by-Layer)
 ![Data Platform Lineage Flow Map](pipeline_flow.jpg)
@@ -66,6 +44,49 @@ The business intelligence semantic tier. To bypass schema namespace restrictions
     -   `fact_trips_visakhapatnam` (City ID: `AP01`)
 
 ---
+## 📁 Catalog & Schema Directory Tree (Data Lineage)
+
+When the data platform execution script is triggered, Databricks automatically generates a highly structured database hierarchy inside **Unity Catalog**. 
+
+The folders (**Schemas**) and physical datasets (**Delta Tables & Views**) are instantiated dynamically according to this exact structural directory blueprint:
+
+```text
+📁 transportation (Master Project Catalog)
+│
+├── 📁 bronze_v2 (Raw Ingestion Folder)
+│   ├── 📄 bronze_dim_city_raw    [Streaming Table - Raw City Landing Keys]
+│   └── 📄 bronze_trips           [Streaming Table - Raw Ride Telemetry Logs]
+│
+├── 📁 silver (Cleaned Enterprise Core)
+│   ├── 📄 trips_silver_staging   [Streaming Table - Quality Gateway & Guardrails]
+│   ├── 📄 city                   [Materialized View - Standardized Lookup Directory]
+│   ├── 📄 calendar               [Materialized View - Dynamic Indian Holiday Grid]
+│   └── 📄 trips                  [Streaming Table - Deduplicated SCD Type 1 Master Core]
+│
+└── 📁 gold (Business Intelligence Semantic Layer)
+    ├── 📊 fact_trips             [Master View - Pre-joined Star Schema Matrix]
+    │
+    └── 📂 Isolated Regional Slices [10x Specialized Hub Views]
+        ├── 📄 fact_trips_chandigarh     (Hub: CH01)
+        ├── 📄 fact_trips_coimbatore     (Hub: TN01)
+        ├── 📄 fact_trips_indore         (Hub: MP01)
+        ├── 📄 fact_trips_jaipur         (Hub: RJ01)
+        ├── 📄 fact_trips_kochi          (Hub: KL01)
+        ├── 📄 fact_trips_lucknow        (Hub: UP01)
+        ├── 📄 fact_trips_mysore         (Hub: KA01)
+        ├── 📄 fact_trips_surat          (Hub: GJ01)
+        ├── 📄 fact_trips_vadodara       (Hub: GJ02)
+        └── 📄 fact_trips_visakhapatnam  (Hub: AP01)
+```
+
+---
+
+## ⚙️ Automated Directory Generation Logic
+
+*   **Default Ingestion Routing:** The pipeline engine reads the core environment settings pointing to `bronze_v2`. Upon initialization, Databricks automatically sets up the physical cloud storage paths and metadata transaction folders for the landing files.
+*   **Explicit Cross-Schema Separation:** By using explicit path names (`transportation.silver.*` and `transportation.gold.*`) directly inside the SQL compilation files, the engine overrides default system parameters. It automatically creates the physical `silver` and `gold` schema directories, ensuring the tiers stay perfectly isolated.
+*   **Physical Cloud Footprint:** For every asset table generated above, Delta Lake builds a corresponding compressed sub-folder directory containing performance optimization metadata (`_delta_log/`) and columnar transaction files (`.parquet`).
+
 
 ## ⚡ Performance Optimization Configurations
 To maintain near-instant response times for production analytics, all physical delta tables utilize advanced Delta Lake storage tuning properties:
