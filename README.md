@@ -26,6 +26,7 @@ The corporate source of truth. This tier structures, cleanses, validates, and co
     -   `valid_driver_rating`: `driver_rating BETWEEN 1 AND 10`
     -   `valid_passenger_rating`: `passenger_rating BETWEEN 1 AND 10`
 *   **`trips`**: The deduplicated destination table. It processes streaming rows from staging using an SCD Type 1 CDC Merge Flow (`APPLY CHANGES INTO`) to overwrite historical record corrections and insert new ride entries cleanly by primary key matching on `id`.
+![Medallion Pipeline Architecture Graph](pipeline_architecture.png)
 
 ### 3. Gold Layer (`transportation.gold`)
 The business intelligence semantic tier. To bypass schema namespace restrictions and eliminate dashboard loading lag, these views are deployed using a Databricks Serverless SQL Warehouse.
