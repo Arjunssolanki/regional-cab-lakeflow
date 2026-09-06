@@ -106,3 +106,12 @@ To maintain near-instant response times for production analytics, all physical d
 *   **Active Pipeline Variables:**
     -   `start_date`: `2024-01-01`
     -   `end_date`: `2026-12-31`
+## 📊 Business Insights & Analytics Showcase
+
+This showcase demonstrates how corporate stakeholders and regional operations managers use the final **Gold Layer** assets to evaluate performance patterns across expanding Tier-2 territories.
+
+### 💡 Stakeholder Scenario & Business Problem
+> *"We need to examine our ride revenue matrix. Specifically, which cities generate the highest revenue per trip, how do passenger habits shift on weekends versus weekdays, and where can we identify gaps between driver performance and passenger satisfaction?"*
+
+### 🛠️ Production-Grade Analytical Query
+The query below evaluates the dataset using native boolean logic (`is_weekend IS TRUE`), preventing syntax parsing mismatches on strict-type schemas.
